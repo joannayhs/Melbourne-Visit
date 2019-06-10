@@ -12,25 +12,30 @@ class CLI
   def activity_list
     puts "Here is a list of the top attractions in the city:"
     number = nil
+    display_list
     while number != "exit"
-      puts "Which activity would you like to know more about? (1-10)"
+      puts "Which activity would you like to know more about? (1-22)"
+      puts "To see the list again, type 'list'"
       puts "When finished, type 'exit'"
-      # display_list
       number = gets.strip
-      case number
-        when "exit"
+        if number == 
+          puts "activity"
+        elsif number == "list"
+          display_list
+        elsif number == "exit"
           goodbye
         else
-          puts "Please enter a number 1-30:"
+          puts "Please enter a number 1-22:"
         end
       end
+    end
   end
 
-  # def display_list
-  #   Scraper.attractions.each_with_index do |activity, i|
-  #     puts "#{i+1}. #{activity}"
-  #   end
-  # end
+  def display_list
+    Scraper.attractions.each_with_index do |activity, i|
+      puts "#{i+1}. #{activity}"
+    end
+  end
 
   def goodbye
     puts "Enjoy your visit!"
