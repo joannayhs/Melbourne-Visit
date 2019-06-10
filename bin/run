@@ -4,4 +4,4 @@ require "./lib/environment.rb"
 
 # CLI.new.call
 
-CLI.new.call
+Scraper.url_hasher

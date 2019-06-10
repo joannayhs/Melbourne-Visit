@@ -1,6 +1,6 @@
-require "pry"
 require "open-uri"
 require "nokogiri"
+require "pry"
 
 class Scraper
 
@@ -18,22 +18,23 @@ class Scraper
     end
 
     def self.urls
-      list_items = Scraper.parse.css("div.attractions-attraction-overview-pois-PoiInfo__info--239IR>div div:nth-child(2) a.attractions-attraction-overview-pois-PoiInfo__name--SJ0a4").map{|attractions| "https://www.tripadvisor.com"+"#{attractions.attr('href')}"}
+      list_items = Scraper.parse.css("#main div.content a").map{|attractions| "https://www.visitmelbourne.com"+"#{attractions.attr('href')}"}
       #creates an array of attraction urls to parse
       #used in parse_attraction_pages method to create hash
     end
 
     def self.url_hasher #scrapes the second level. pulls the information about each activity.
       attractions = {
-        :title => [],
+        :category => [],
+        :description => [],
         :location => [],
-        :about => [],
       }
 
       Scraper.urls.each do |url|
         doc = Nokogiri::HTML(open(url)) #creates new key value pairs in the hash.
-          attractions[:title] << doc.css("#HEADING").text #title
-          attractions[:location] << doc.css("div.contactInfo span[class='textAlignWrapper address']").text #location
+          attractions[:category] << doc.css(".tag-label").text
+          attractions[:description] << doc.css("#overview p").text #description
+          attractions[:location] << doc.css("span.address").text #location
       end
       attractions #this hash will be passed into a method in the Attraction class
     end

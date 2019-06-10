@@ -18,7 +18,7 @@ class CLI
       puts "To see the list again, type 'list'"
       puts "When finished, type 'exit'"
       number = gets.strip
-        if number == 
+        if number == "hello"
           puts "activity"
         elsif number == "list"
           display_list
@@ -28,7 +28,6 @@ class CLI
           puts "Please enter a number 1-22:"
         end
       end
-    end
   end
 
   def display_list
