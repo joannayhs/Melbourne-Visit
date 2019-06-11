@@ -9,10 +9,8 @@ end
 
 def self.create_from_hash(hash)
   Scraper.url_hasher.each do |key, value|
-    value.each do |info|
-      self.send("#{key}=", info)
+      self.send("#{key}=", value)
       self.save
-    end
   end
 end
 

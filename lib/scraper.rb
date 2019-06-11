@@ -24,13 +24,12 @@ class Scraper
     end
 
     def self.url_hasher #scrapes the second level. pulls the information about each activity.
-      attractions = {
-        :category => [],
-        :description => [],
-        :location => [],
-      }
-
       Scraper.urls.each do |url|
+        attractions = {
+          :category => [],
+          :description => [],
+          :location => [],
+        }
         doc = Nokogiri::HTML(open(url)) #creates new key value pairs in the hash.
           attractions[:category] << doc.css(".tag-label").text
           attractions[:description] << doc.css("#overview p").text #description
