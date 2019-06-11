@@ -3,6 +3,7 @@
 require "./lib/environment.rb"
 
 # CLI.new.call
-
-Attraction.create_from_hash(Scraper.url_hasher)
-puts Attraction.all
+Scraper.url_hasher
+Attraction.all.each do |attraction|
+  puts attraction.category
+end 
