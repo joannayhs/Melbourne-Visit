@@ -12,7 +12,7 @@ class Scraper
 
     def self.attractions #gets the surface level of each activity to create the output list.
       doc = Scraper.parse
-      list_items = doc.css("#main div.content a").map{|attractions| attractions.text.strip}
+      list_items = doc.css("#main div.content a").map{|attractions| attractions.text.strip}.sort
       #creates an array of attractions
       #used in CLI to list attractions
     end
@@ -23,13 +23,15 @@ class Scraper
       #used in parse_attraction_pages method to create hash
     end
 
-    def self.url_hasher #scrapes the second level. pulls the information about each activity.
-      Scraper.urls.each do |url|
-        doc = Nokogiri::HTML(open(url)) #creates new key value pairs in the hash.
+    def self.url_hasher #scrapes the second level. pulls the information about each attraction.
+      Scraper.urls.sort.each_with_index do |url, i|
+        doc = Nokogiri::HTML(open(url))
+          name = Scraper.attractions[i]
           category = doc.css(".tag-label").text
           description = doc.css("#overview p").text
           location = doc.css("span.address").text
-          Attraction.new(category, description, location)
+          Attraction.new(name, category, description, location)
+          binding.pry
       end
     end
 
