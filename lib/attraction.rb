@@ -20,4 +20,15 @@ def self.sort_by_category
   category_array.sort
 end
 
+def self.sort_by_name
+  name_array = Attraction.all.map do |attraction|
+     attraction.name
+  end
+  name_array.sort
+end
+
+def display_description
+  
+end
+
 end

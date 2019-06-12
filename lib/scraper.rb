@@ -26,12 +26,14 @@ class Scraper
     def self.url_parser #scrapes the second level. pulls the information about each attraction.
       Scraper.urls.sort.each_with_index do |url, i|
         doc = Nokogiri::HTML(open(url))
-          name = Scraper.attractions[i]
+          name = doc.css(".sl-item h1").text
           category = doc.css(".tag-label").text
           description = doc.css("#overview p").text
           location = doc.css("span.address").text
-          Attraction.new(name, category, description, location)
+          unless Attraction.sort_by_name.include?(name)
+            Attraction.new(name, category, description, location)
+          end
+        end
       end
-    end
 
 end

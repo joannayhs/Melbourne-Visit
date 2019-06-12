@@ -3,4 +3,4 @@
 require "./lib/environment.rb"
 
 Scraper.url_parser
-puts Attraction.sort_by_category
+puts Attraction.sort_by_name
