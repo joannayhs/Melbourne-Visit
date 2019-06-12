@@ -23,7 +23,7 @@ class Scraper
       #used in parse_attraction_pages method to create hash
     end
 
-    def self.url_hasher #scrapes the second level. pulls the information about each attraction.
+    def self.url_parser #scrapes the second level. pulls the information about each attraction.
       Scraper.urls.sort.each_with_index do |url, i|
         doc = Nokogiri::HTML(open(url))
           name = Scraper.attractions[i]
@@ -31,7 +31,6 @@ class Scraper
           description = doc.css("#overview p").text
           location = doc.css("span.address").text
           Attraction.new(name, category, description, location)
-          binding.pry
       end
     end
 

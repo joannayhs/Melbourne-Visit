@@ -2,5 +2,5 @@
 
 require "./lib/environment.rb"
 
-# CLI.new.call
-Scraper.attractions
+Scraper.url_parser
+puts Attraction.sort_by_category

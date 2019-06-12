@@ -12,4 +12,12 @@ def self.all
   @@all
 end
 
+
+def self.sort_by_category
+  category_array = Attraction.all.map do |attraction|
+     attraction.category
+  end
+  category_array.sort
+end
+
 end
