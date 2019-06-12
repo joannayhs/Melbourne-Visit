@@ -10,13 +10,6 @@ class Scraper
       doc = Nokogiri::HTML(open(BASE_URL))
     end
 
-    def self.attractions #gets the surface level of each activity to create the output list.
-      doc = Scraper.parse
-      list_items = doc.css("#main div.content a").map{|attractions| attractions.text.strip}.sort
-      #creates an array of attractions
-      #used in CLI to list attractions
-    end
-
     def self.urls
       list_items = Scraper.parse.css("#main div.content a").map{|attractions| "https://www.visitmelbourne.com"+"#{attractions.attr('href')}"}
       #creates an array of attraction urls to parse

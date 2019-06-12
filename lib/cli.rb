@@ -1,6 +1,7 @@
 class CLI
 
   def call
+    Scraper.url_parser
     welcome
     activity_list
   end
@@ -10,9 +11,6 @@ class CLI
   end
 
   def activity_list
-    puts "Would you like to see a list of the top attractions and current events happening in the city? (Y/N)"
-    input = gets.strip.upcase
-    if input == "Y"
       display_list
       number = nil
       while number != "exit"
@@ -21,8 +19,9 @@ class CLI
       puts "To see the list separated into categories, type 'category'"
       puts "When finished, type 'exit'"
       number = gets.strip
-        if number == "hello"
-          puts "activity"
+      list_number = Attraction.sort_by_name.each_with_index{|attraction, i| i+1}
+        if number.to_i == list_number
+          puts details(number-1)
         elsif number == "list"
           display_list
         elsif number == "exit"
@@ -31,18 +30,22 @@ class CLI
           puts "Please enter a number 1-22:"
         end
       end
-    end
   end
 
   def display_list
-    Attraction.all.each_with_index do |activity, i|
-      puts "#{i+1}. #{activity.name}"
+    Attraction.sort_by_name.each_with_index do |attraction, i|
+      puts "#{i+1}. #{attraction}"
     end
   end
 
 
-  def category
-
+  def details(index)
+    selection = Attraction.sort_by_name[index]
+      puts "#{selection.name}\n"
+      puts "#{selection.category}\n"
+      puts "#{selection.description}\n"
+      puts "#{selection.location}"
+    end
   end
 
   def goodbye
