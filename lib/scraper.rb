@@ -25,8 +25,11 @@ class Scraper
           location = doc.css("span.address").text
           unless Attraction.sort_by_name.include?(name)
             Attraction.new(name, category, description, location)
+            if !Category.sort_by_name.include?(category)
+            Category.new(category, name)
           end
         end
       end
+    end
 
 end
