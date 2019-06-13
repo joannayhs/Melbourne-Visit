@@ -18,10 +18,7 @@ class CLI
       while number != "exit"
         number = gets.strip
         attraction_list(Category.sort_by_name[number.to_i - 1])
-        puts "To get more information about any of these attractions, type the corresponding number:"
-        puts "When finished type, 'exit'"
       end
-
   end
 
   def categories
@@ -31,13 +28,14 @@ class CLI
   end
 
   def attraction_list(category)
-    counter = 1
-    Attraction.all.each do |attraction|
-      if category == attraction.category
-        puts "#{counter}. #{attraction.name}"
-      end
+    true_array = Attraction.all.select do |attraction|
+      category == attraction.category
     end
-    counter += 1
+    true_array.each_with_index do |attraction, i|
+      puts "#{attraction.category}"
+      puts "#{i + 1}. #{attraction.name}"
+      puts "To see more information about any of these attractions, type the corresponding number:"
+    end
   end
 
   def details(index)
