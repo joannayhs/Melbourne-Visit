@@ -18,6 +18,7 @@ class CLI
       while number != "exit"
         number = gets.strip
         attraction_list(Category.sort_by_name[number.to_i - 1])
+        puts "To get more information about any of these attractions, type the corresponding number:"
         puts "When finished type, 'exit'"
       end
 
@@ -35,8 +36,8 @@ class CLI
       if category == attraction.category
         puts "#{counter}. #{attraction.name}"
       end
-      counter += 1
     end
+    counter += 1
   end
 
   def details(index)
