@@ -1,5 +1,4 @@
 class Attraction
-
 attr_accessor :name, :category, :description, :location
 @@all = []
 

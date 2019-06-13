@@ -13,15 +13,31 @@ class CLI
 
   def category_list
       categories
-      puts "Type a number to see a list of attractions and events in each category:"
+      puts "Type a number to see a list of attractions and events in each of the following categories:"
+      number = nil
+      while number != "exit"
+        number = gets.strip
+        attraction_list(Category.sort_by_name[number.to_i - 1])
+        puts "When finished type, 'exit'"
+      end
+
   end
 
   def categories
-    Attraction.sort_by_category.each_with_index do |attraction, i|
-      puts "#{i+1}. #{attraction}"
+    Category.sort_by_name.each_with_index do |category, i|
+      puts "#{i+1}. #{category}"
     end
   end
 
+  def attraction_list(category)
+    counter = 1
+    Attraction.all.each do |attraction|
+      if category == attraction.category
+        puts "#{counter}. #{attraction.name}"
+      end
+      counter += 1
+    end
+  end
 
   def details(index)
     selection = Attraction.sort_by_name[index]
