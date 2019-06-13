@@ -13,7 +13,7 @@ class CLI
 
   def category_list
       categories
-      puts "Type a number to see a list of attractions and events in each of the following categories:\n"
+      puts "\nType a number to see a list of attractions and events in each of the following categories:"
       number = nil
       while number != "exit"
         number = gets.strip
@@ -43,15 +43,20 @@ class CLI
     end
     puts "\nTo see more information about any of these attractions, type the corresponding number:"
     input = gets.strip
-    details(input)
+    details(category, input.to_i)
   end
 
-  def details(index)
-    selection = Attraction.sort_by_name[index]
-      puts "#{selection.name}\n"
-      puts "#{selection.category}\n"
-      puts "#{selection.description}\n"
-      puts "#{selection.location}"
+  def details(category, index)
+    true_array = Attraction.all.select do |attraction|
+      category == attraction.category
+    end
+    selection = true_array[index-1]
+      puts "\n\nAttraction: #{selection.name}"
+      puts "\nCategory: #{selection.category}"
+      puts "\nDescription: #{selection.description}"
+      puts "\nLocation: #{selection.location}"
+      puts "\n\nType 'category' to go back to the list of categories."
+      puts "When finished, type 'exit'"
   end
 
   def goodbye
