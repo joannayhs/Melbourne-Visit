@@ -4,16 +4,15 @@ class CLI
     Scraper.url_parser
     welcome
     category_list
-    goodbye
   end
 
   def welcome
-    puts "Welcome to Melbourne, Australia!"
+    puts "\n\nWelcome to Melbourne, Australia!"
     puts "Here is a list of attraction categories. What would you like to do while you're here?"
   end
 
   def category_list
-      puts "\nType a number to see a list of attractions and events in each of the following categories:"
+      puts "\n\nEnter a number to see attractions and events for each category:"
       categories
       number = nil
       while number != "exit"
@@ -24,7 +23,7 @@ class CLI
           goodbye
         else
           puts "Please type a number between 1 and #{Category.all.length}:"
-          puts "When finished, type 'exit'."
+          puts "Or if finished, type 'exit'."
         end
       end
   end
@@ -49,8 +48,10 @@ class CLI
       input = gets.strip
       if input.to_i.between?(1,true_array.length)
         details(category, input.to_i)
+      elsif input == "back"
+        category_list
       else
-        puts "Please enter the corresponding number:"
+        puts "Please enter the corresponding number or type 'back' to see the category list:"
       end
     end
   end
@@ -64,20 +65,23 @@ class CLI
       puts "Category: #{selection.category}"
       puts "\nLocation: #{selection.location}"
       puts "\nDescription: \n#{selection.description}"
-      puts "\n\nType 'category' to go back to the list of categories."
-      puts "When finished, type 'exit'"
-      input = gets.strip
-      if input == "category"
-        category_list
-      elsif input == "exit"
-        goodbye
-      else
-        puts "Please type 'category' or 'exit'"
+      puts "\n\nType 'back' to see the list of categories again."
+      puts "Type 'exit' to exit."
+      input = nil
+      while input != "exit"
+        input = gets.strip
+        if input == "back"
+          category_list
+        elsif input == "exit"
+          goodbye
+        else
+        puts "Please type 'back' or 'exit'"
       end
+    end
   end
 
   def goodbye
-    puts "Enjoy your visit!"
+    puts "\nEnjoy your visit!"
     exit
   end
 
