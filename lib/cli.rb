@@ -78,7 +78,7 @@ class CLI
 
   def goodbye
     puts "Enjoy your visit!"
-    self.exit
+    CLI.exit
   end
 
 end
