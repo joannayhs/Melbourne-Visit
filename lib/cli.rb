@@ -9,7 +9,7 @@ class CLI
 
   def welcome
     puts "Welcome to Melbourne, Australia!"
-    puts "Here is a list of categories. What would you like to do while you're here?"
+    puts "Here is a list of attraction categories. What would you like to do while you're here?"
   end
 
   def category_list
@@ -44,8 +44,15 @@ class CLI
       puts "\n#{i + 1}. #{attraction.name}"
     end
     puts "\nTo see more information about any of these attractions, type the corresponding number:"
-    input = gets.strip
-    details(category, input.to_i)
+    input = nil
+    while !input.to_i.between?(1,true_array.length)
+      input = gets.strip
+      if input.to_i.between?(1,true_array.length)
+        details(category, input.to_i)
+      else
+        puts "Please enter a number between 1 and #{true_array.length}"
+      end
+    end
   end
 
   def details(category, index)
@@ -54,9 +61,9 @@ class CLI
     end
     selection = true_array[index-1]
       puts "\n\nAttraction: #{selection.name}"
-      puts "\nCategory: #{selection.category}"
-      puts "\nDescription: #{selection.description}"
+      puts "Category: #{selection.category}"
       puts "\nLocation: #{selection.location}"
+      puts "\nDescription: \n#{selection.description}"
       puts "\n\nType 'category' to go back to the list of categories."
       puts "When finished, type 'exit'"
       input = gets.strip
@@ -71,5 +78,7 @@ class CLI
 
   def goodbye
     puts "Enjoy your visit!"
+    self.exit
   end
+
 end
