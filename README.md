@@ -1,6 +1,6 @@
 # VisitMelbourne
 
-Welcome to Melbourne, Australia! This gem is a guide to all of the best things to do in the city of Melbourne. Upon opening the gem, you are greeted with a list of categories, ranging from architecture, to history & heritage, to theater and performing arts. Selecting a category will pull up a list of events and attractions relating to that category and choosing an event or attraction will give you the description for that selection. Enjoy your stay!
+Welcome to Melbourne, Australia! This gem is a guide to all of the best things to do in the city of Melbourne. Upon opening the gem, you are greeted with a list of categories, ranging from architecture, to history & heritage, to theater and performing arts and more. Selecting a category will pull up a list of events and attractions relating to that category and then selecting an event or attraction will give you the description for that selection. Enjoy your visit!
 
 ## Installation
 
