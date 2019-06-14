@@ -50,7 +50,7 @@ class CLI
       if input.to_i.between?(1,true_array.length)
         details(category, input.to_i)
       else
-        puts "Please enter a number between 1 and #{true_array.length}"
+        puts "Please enter the corresponding number:"
       end
     end
   end
@@ -78,7 +78,7 @@ class CLI
 
   def goodbye
     puts "Enjoy your visit!"
-    CLI.exit
+    exit
   end
 
 end
