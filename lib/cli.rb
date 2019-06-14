@@ -4,16 +4,17 @@ class CLI
     Scraper.url_parser
     welcome
     category_list
+    goodbye
   end
 
   def welcome
     puts "Welcome to Melbourne, Australia!"
-    puts "What would you like to do while you're here?"
+    puts "Here is a list of categories. What would you like to do while you're here?"
   end
 
   def category_list
-      categories
       puts "\nType a number to see a list of attractions and events in each of the following categories:"
+      categories
       number = nil
       while number != "exit"
         number = gets.strip
@@ -22,7 +23,8 @@ class CLI
         elsif number == "exit"
           goodbye
         else
-          puts "Please type a number between 1 and 14:"
+          puts "Please type a number between 1 and #{Category.all.length}:"
+          puts "When finished, type 'exit'."
         end
       end
   end
@@ -57,6 +59,14 @@ class CLI
       puts "\nLocation: #{selection.location}"
       puts "\n\nType 'category' to go back to the list of categories."
       puts "When finished, type 'exit'"
+      input = gets.strip
+      if input == "category"
+        category_list
+      elsif input == "exit"
+        goodbye
+      else
+        puts "Please type 'category' or 'exit'"
+      end
   end
 
   def goodbye

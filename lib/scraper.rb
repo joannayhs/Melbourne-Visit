@@ -13,7 +13,7 @@ class Scraper
     def self.urls
       list_items = Scraper.parse.css("#main div.content a").map{|attractions| "https://www.visitmelbourne.com"+"#{attractions.attr('href')}"}
       #creates an array of attraction urls to parse
-      #used in parse_attraction_pages method to create hash
+      #used in url_parser method to create hash
     end
 
     def self.url_parser #scrapes the second level. pulls the information about each attraction.
@@ -22,7 +22,7 @@ class Scraper
           name = doc.css(".sl-item h1").text
           category = doc.css(".tag-label").text
           description = doc.css("#overview p").text
-          location = doc.css("span.address").text
+          location = doc.css("section.cm.cm-map span.address"").text
           unless Attraction.sort_by_name.include?(name)
             Attraction.new(name, category, description, location)
             if !Category.sort_by_name.include?(category)
