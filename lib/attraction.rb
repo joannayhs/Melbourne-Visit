@@ -1,9 +1,9 @@
 class Attraction
-attr_accessor :name, :category, :description, :location
+attr_accessor :name, :category, :description, :location, :url
 @@all = []
 
-def initialize(name = nil, category = nil, description = nil, location = nil)
-  @name, @category, @description, @location = name, category, description, location
+def initialize(name = nil, category = nil, description = nil, location = nil, url = nil)
+  @name, @category, @description, @location, @url = name, category, description, location, url
   @@all << self
 end
 

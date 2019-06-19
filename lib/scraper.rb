@@ -10,9 +10,26 @@ class Scraper
       doc = Nokogiri::HTML(open(BASE_URL))
     end
 
-    def self.urls
-      list_items = Scraper.parse.css("#main div.content a").map{|attractions| "https://www.visitmelbourne.com"+"#{attractions.attr('href')}"}
+    def self.new_attractions
+      list_items = Scraper.parse.css("#main div.content a")
+      list_items[0..9].each do |attraction|
+        names = []
+        names << attraction.text.strip
+        urls = []
+        urls << "https://www.visitmelbourne.com" + "#{attraction.attr('href')}"
+        names.each do |name|
+        unless Attraction.sort_by_name.include?(name)
+            new_attraction = Attraction.new
+            new_attraction.name = name
+            urls.each do |url|
+              new_attraction.url = url
+            end
+          end 
+        end
+      end
+        binding.pry
     end
+
 
     def self.url_parser
       Scraper.urls.sort.each_with_index do |url, i|
