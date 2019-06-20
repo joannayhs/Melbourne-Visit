@@ -38,28 +38,26 @@ class CLI
   def attraction_details(input)
     Attraction.all.each do |attraction|
       if attraction.name == Attraction.sort_by_name[input]
-        Scraper.add_details(attraction.url) unless Scraper.add_details(attraction.url) != nil
+        Scraper.add_details(attraction.url) unless attraction.description != nil
+        puts "\n\nAttraction: #{attraction.name}"
+        puts "Category: #{attraction.category}"
+        puts "\nLocation: #{attraction.location}"
+        puts "\nDescription: \n#{attraction.description}"
+        puts "\n\nType 'back' to see the list of attractions again."
+        puts "Type 'exit' to exit."
       end
     end
-    binding.pry
-    selection = true_array[index-1]
-      puts "\n\nAttraction: #{selection.name}"
-      puts "Category: #{selection.category}"
-      puts "\nLocation: #{selection.location}"
-      puts "\nDescription: \n#{selection.description}"
-      puts "\n\nType 'back' to see the list of categories again."
-      puts "Type 'exit' to exit."
       input = nil
       while input != "exit"
         input = gets.strip
         if input == "back"
-          category_list
+          attraction_list
         elsif input == "exit"
           goodbye
         else
-        puts "Please type 'back' or 'exit'"
+          puts "Please type 'back' or 'exit'"
+        end
       end
-    end
   end
 
   def goodbye
