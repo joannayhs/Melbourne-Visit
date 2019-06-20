@@ -24,27 +24,21 @@ class Scraper
             urls.each do |url|
               new_attraction.url = url
             end
-          end 
-        end
-      end
-        binding.pry
-    end
-
-
-    def self.url_parser
-      Scraper.urls.sort.each_with_index do |url, i|
-        doc = Nokogiri::HTML(open(url))
-        name = doc.css(".sl-item h1").text
-        category = doc.css(".tag-label").text
-        description = doc.css("#overview p").text
-        location = doc.css("section.cm.cm-map span.address").text
-        unless Attraction.sort_by_name.include?(name)
-            Attraction.new(name, category, description, location)
-          if !Category.sort_by_name.include?(category)
-            Category.new(category, name)
           end
         end
       end
+    end
+
+    def self.add_details(url)
+      doc = Nokogiri::HTML(open(url))
+      Attraction.all.each do |attraction|
+        if attraction.url == url
+          attraction.description = doc.css("#overview p").text
+          attraction.location = doc.css("section.cm.cm-map span.address").text
+          attraction.category = category = doc.css(".tag-label").text
+        end
+      end
+      binding.pry
     end
 
 end

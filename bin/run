@@ -4,3 +4,4 @@ require "./lib/environment.rb"
 
 # CLI.new.call
 Scraper.new_attractions
+Scraper.add_details(Attraction.all[0].url)
