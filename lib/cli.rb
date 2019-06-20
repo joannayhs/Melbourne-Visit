@@ -1,65 +1,47 @@
 class CLI
 
   def call
-    Scraper.url_parser
+    Scraper.new_attractions
     welcome
-    category_list
+    attraction_list
   end
 
   def welcome
     puts "\n\nWelcome to Melbourne, Australia!"
-    puts "Here is a list of attraction categories. What would you like to do while you're here?"
+    puts "Here is a list of the top attractions. What would you like to do while you're here?"
   end
 
-  def category_list
-      puts "\n\nEnter a number to see attractions and events for each category:"
-      categories
+  def attraction_list
+      puts "\n\nEnter a number to see more information about each attraction:"
+      attractions
       number = nil
       while number != "exit"
         number = gets.strip
-        if number.to_i.between?(1,Category.all.length)
-          attraction_list(Category.sort_by_name[number.to_i - 1])
+        if number.to_i.between?(1,Attraction.all.length)
+          attraction_details(number.to_i - 1)
         elsif number == "exit"
           goodbye
         else
-          puts "Please type a number between 1 and #{Category.all.length}:"
+          puts "Please type a number between 1 and #{Attraction.all.length}:"
           puts "Or if finished, type 'exit'."
         end
       end
   end
 
-  def categories
-    Category.sort_by_name.each_with_index do |category, i|
-      puts "#{i+1}. #{category}"
-    end
+  def attractions
+    Attraction.sort_by_name.each_with_index do |attraction, i|
+     puts "#{i + 1}. #{attraction}"
+   end
   end
 
-  def attraction_list(category)
-    puts "\n#{category}"
-    true_array = Attraction.all.select do |attraction|
-      category == attraction.category
-    end
-    true_array.each_with_index do |attraction, i|
-      puts "\n#{i + 1}. #{attraction.name}"
-    end
-    puts "\nTo see more information about any of these attractions, type the corresponding number:"
-    input = nil
-    while !input.to_i.between?(1,true_array.length)
-      input = gets.strip
-      if input.to_i.between?(1,true_array.length)
-        details(category, input.to_i)
-      elsif input == "back"
-        category_list
-      else
-        puts "Please enter the corresponding number or type 'back' to see the category list:"
+
+  def attraction_details(input)
+    Attraction.all.each do |attraction|
+      if attraction.name == Attraction.sort_by_name[input]
+        Scraper.add_details(attraction.url) unless Scraper.add_details(attraction.url) != nil
       end
     end
-  end
-
-  def details(category, index)
-    true_array = Attraction.all.select do |attraction|
-      category == attraction.category
-    end
+    binding.pry
     selection = true_array[index-1]
       puts "\n\nAttraction: #{selection.name}"
       puts "Category: #{selection.category}"

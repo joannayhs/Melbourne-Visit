@@ -38,7 +38,6 @@ class Scraper
           attraction.category = category = doc.css(".tag-label").text
         end
       end
-      binding.pry
     end
 
 end

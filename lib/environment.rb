@@ -8,4 +8,3 @@ end
 require_relative "attraction.rb"
 require_relative "cli.rb"
 require_relative "scraper.rb"
-require_relative "category.rb"
